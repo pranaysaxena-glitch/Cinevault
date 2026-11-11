@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="CineVault - a premium video subscription platform demo built for AWS EC2 hosting."
+    />
+    <title>CineVault | Premium Streaming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-glow glow-one"></div>
+    <div class="page-glow glow-two"></div>
+
+    <header class="topbar">
+      <div class="brand" aria-label="CineVault home">
+        <div class="brand-mark">C</div>
+        <span class="brand-text">CineVault</span>
+      </div>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home" class="active">Home</a>
+        <a href="#explore">Explore</a>
+        <a href="#movies">Movies</a>
+        <a href="#series">Series</a>
+        <a href="#plans">Subscription Plans</a>
+        <a href="#architecture">Cloud Architecture</a>
+        <button class="nav-button search-toggle" type="button">Search</button>
+        <button class="nav-button auth-toggle login-toggle" type="button">Login</button>
+        <button class="nav-button auth-toggle signup-toggle" type="button">Sign Up</button>
+        <div class="user-chip hidden" id="userChip" aria-live="polite">
+          <div class="avatar" id="avatarBadge">U</div>
+          <span id="userNameLabel">User</span>
+          <div class="mini-menu">
+            <button class="inline-link" type="button" data-target="#dashboard">Dashboard</button>
+            <button class="inline-link danger" id="logoutButton" type="button">Logout</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="hero-backdrop"></div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+          <span class="section-tag">Premium Original</span>
+          <h1 id="featuredTitle">Nightfall Protocol</h1>
+          <div class="hero-meta">
+            <span id="featuredGenre">Sci-Fi</span>
+            <span id="featuredDuration">2h 08m</span>
+            <span id="featuredYear">2024</span>
+            <span class="star-rating" id="featuredRating">★ 8.8</span>
+          </div>
+          <p id="featuredDescription">
+            When a hidden signal reaches the Earth’s edge, a former cyber-ops captain must stop a rogue fleet from rewriting the future.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-button watch-featured" type="button">Watch Now</button>
+            <button class="secondary-button info-featured" type="button">More Information</button>
+          </div>
+        </div>
+
+        <div class="poster-wrap">
+          <div class="premium-tag">Premium</div>
+          <img id="featuredPoster" src="" alt="Featured movie poster" />
+        </div>
+      </section>
+
+      <section class="media-section" id="movies">
+        <div class="section-header">
+          <h2>Trending Now</h2>
+          <a href="#explore">Browse all</a>
+        </div>
+        <div id="trendingRow" class="media-row"></div>
+      </section>
+
+      <section class="media-section" id="continue-watch">
+        <div class="section-header">
+          <h2>Continue Watching</h2>
+          <a href="#dashboard">Open dashboard</a>
+        </div>
+        <div id="continueWatchingRow" class="media-row"></div>
+      </section>
+
+      <section class="media-section" id="popular">
+        <div class="section-header">
+          <h2>Popular Movies</h2>
+          <a href="#explore">Explore more</a>
+        </div>
+        <div id="popularRow" class="media-row"></div>
+      </section>
+
+      <section class="media-section" id="recommended">
+        <div class="section-header">
+          <h2>Recommended For You</h2>
+          <a href="#dashboard">Personalized picks</a>
+        </div>
+        <div id="recommendedRow" class="media-row"></div>
+      </section>
+
+      <section class="media-section" id="series">
+        <div class="section-header">
+          <h2>Latest Releases</h2>
+          <a href="#explore">Discover all</a>
+        </div>
+        <div id="latestRow" class="media-row"></div>
+      </section>
+
+      <section class="media-section" id="top-rated">
+        <div class="section-header">
+          <h2>Top Rated</h2>
+          <a href="#explore">All favorites</a>
+        </div>
+        <div id="topRatedRow" class="media-row"></div>
+      </section>
+
+      <section class="media-section" id="free-watch">
+        <div class="section-header">
+          <h2>Free To Watch</h2>
+          <a href="#explore">Browse free</a>
+        </div>
+        <div id="freeRow" class="media-row"></div>
+      </section>
+
+      <section class="media-section" id="premium-exclusive">
+        <div class="section-header">
+          <h2>Premium Exclusives</h2>
+          <a href="#plans">Upgrade now</a>
+        </div>
+        <div id="premiumRow" class="media-row"></div>
+      </section>
+
+      <section id="explore" class="catalog-section">
+        <div class="section-header catalog-head">
+          <h2>Explore the Catalogue</h2>
+        </div>
+
+        <div class="filter-bar">
+          <label class="search-field">
+            <span>Search</span>
+            <input id="searchInput" type="search" placeholder="Search titles, genres or descriptions..." />
+          </label>
+
+          <label>
+            <span>Category</span>
+            <select id="categoryFilter">
+              <option value="All">All categories</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Genre</span>
+            <select id="genreFilter">
+              <option value="All">All genres</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Access</span>
+            <select id="accessFilter">
+              <option value="All">All access</option>
+              <option value="Free">Free</option>
+              <option value="Premium">Premium</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="plans" class="plans-section">
+        <div class="section-header">
+          <h2>Subscription Plans</h2>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="plan-card free-plan">
+            <span class="plan-badge">Starter</span>
+            <h3>Free Plan</h3>
+            <div class="price-line">
+              <span class="price">₹0</span>
+              <small>/month</small>
+            </div>
+            <ul>
+              <li>Selected free videos</li>
+              <li>Standard playback</li>
+              <li>Basic account</li>
+            </ul>
+            <button class="plan-button active-plan" data-plan="Free" type="button">Current Plan</button>
+          </article>
+
+          <article class="plan-card premium-plan highlighted">
+            <span class="plan-badge premium">Best value</span>
+            <h3>Premium Plan</h3>
+            <div class="price-line">
+              <span class="price">₹199</span>
+              <small>/month</small>
+            </div>
+            <ul>
+              <li>Access to all videos</li>
+              <li>Premium-exclusive content</li>
+              <li>HD playback</li>
+              <li>Watch history and favorites</li>
+            </ul>
+            <button class="plan-button" data-plan="Premium" type="button">Upgrade to Premium</button>
+          </article>
+        </div>
+
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Features</th>
+                <th>Free</th>
+                <th>Premium</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Full catalogue</td>
+                <td>Partial</td>
+                <td>Unlimited</td>
+              </tr>
+              <tr>
+                <td>Premium exclusives</td>
+                <td>✕</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>HD playback</td>
+                <td>Standard</td>
+                <td>HD available</td>
+              </tr>
+              <tr>
+                <td>Watch history</td>
+                <td>Limited</td>
+                <td>Full</td>
+              </tr>
+              <tr>
+                <td>Monthly price</td>
+                <td>₹0</td>
+                <td>₹199</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="architecture" class="architecture-section">
+        <div class="section-header">
+          <h2>Cloud Architecture</h2>
+        </div>
+
+        <div class="architecture-layout">
+          <div class="architecture-diagram" aria-label="AWS EC2 deployment architecture diagram">
+            <div class="flow-node user-node">User / Client Browser</div>
+            <div class="flow-node internet-node">Internet</div>
+            <div class="flow-node ec2-node">AWS EC2 Instance</div>
+            <div class="flow-node ubuntu-node">Ubuntu Server</div>
+            <div class="flow-node nginx-node">Nginx Web Server</div>
+            <div class="flow-node frontend-node">HTML Frontend</div>
+            <div class="flow-node css-node">CSS Styling</div>
+            <div class="flow-node js-node">JavaScript Functionality</div>
+            <div class="flow-node video-node">Video Playback</div>
+
+            <div class="future-box">Optional Future: S3 + CloudFront</div>
+            <div class="flow-arrow arrow-1"></div>
+            <div class="flow-arrow arrow-2"></div>
+            <div class="flow-arrow arrow-3"></div>
+            <div class="flow-arrow arrow-4"></div>
+            <div class="flow-arrow arrow-5"></div>
+            <div class="flow-arrow arrow-6"></div>
+            <div class="flow-arrow arrow-7"></div>
+            <div class="flow-arrow arrow-8"></div>
+            <div class="flow-arrow arrow-9"></div>
+          </div>
+        </div>
+
+        <div class="architecture-text">
+          <div class="info-card">
+            <h3>What is cloud computing?</h3>
+            <p>
+              Cloud computing provides on-demand access to computing resources such as servers, storage and networking over the internet, without needing physical hardware in a local office or laboratory.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>What is AWS?</h3>
+            <p>
+              AWS (Amazon Web Services) is a cloud platform that offers a large number of scalable services for hosting applications, data storage and content delivery.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>What is EC2?</h3>
+            <p>
+              EC2 is Amazon Elastic Compute Cloud, which lets developers launch virtual machines (VMs) in the cloud with configurable CPU, memory and networking resources.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>What is Nginx?</h3>
+            <p>
+              Nginx is a high-performance web server used to serve static websites and applications efficiently across the internet.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>How website hosting works</h3>
+            <p>
+              The user opens the EC2 public IP in a browser. Nginx receives the request, reads the static files from /var/www/html and delivers them as HTML, CSS and JavaScript to the client.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>Optional future architecture</h3>
+            <p>
+              S3 and CloudFront are optionally proposed for scalable media delivery and accelerated content distribution, but they are not required for this academic static frontend deployment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about-section">
+        <div class="section-header">
+          <h2>About CineVault</h2>
+        </div>
+
+        <div class="about-grid">
+          <article class="about-card">
+            <h3>Project Details</h3>
+            <ul>
+              <li><strong>Project Name:</strong> CineVault</li>
+              <li><strong>Project Type:</strong> Cloud-Based Video Subscription Platform</li>
+              <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
+              <li><strong>Cloud Platform:</strong> Amazon Web Services</li>
+              <li><strong>Virtual Machine:</strong> AWS EC2</li>
+              <li><strong>Operating System:</strong> Ubuntu Linux</li>
+              <li><strong>Web Server:</strong> Nginx</li>
+              <li><strong>Hosting Type:</strong> Static Website Hosting on Cloud VM</li>
+            </ul>
+          </article>
+
+          <article class="about-card">
+            <h3>Objective</h3>
+            <p>
+              CineVault demonstrates a premium streaming service interface with a static frontend that can be deployed directly on an AWS EC2 Ubuntu instance using Nginx. This project is designed for academic learning about cloud hosting, frontend web development and static deployment workflow.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="dashboard" class="dashboard-section">
+        <div class="section-header">
+          <h2>My Dashboard</h2>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-card highlight-card">
+            <h3 id="dashboardGreeting">Welcome back</h3>
+            <p id="dashboardPlanText">Current plan: Free</p>
+            <div class="dashboard-actions">
+              <button class="primary-button upgrade-action" type="button">Upgrade Plan</button>
+              <button class="secondary-button logout-button" type="button">Logout</button>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <h3>Profile Information</h3>
+            <ul class="profile-list">
+              <li><span>Name</span><strong id="profileName">Guest</strong></li>
+              <li><span>Email</span><strong id="profileEmail">-</strong></li>
+              <li><span>Subscription</span><strong id="profilePlan">Free</strong></li>
+              <li><span>Expiry</span><strong id="profileExpiry">-</strong></li>
+            </ul>
+          </div>
+
+          <div class="dashboard-card">
+            <h3>Watch History</h3>
+            <ul id="watchHistoryList" class="list-stack"></ul>
+          </div>
+
+          <div class="dashboard-card">
+            <h3>Continue Watching</h3>
+            <div id="continueWatchingList" class="mini-card-grid"></div>
+          </div>
+
+          <div class="dashboard-card">
+            <h3>Favourite Videos</h3>
+            <div id="favoriteList" class="mini-card-grid"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <div class="brand footer-brand">
+          <div class="brand-mark">C</div>
+          <span class="brand-text">CineVault</span>
+        </div>
+      </div>
+      <p>Academic cloud deployment demo for AWS EC2 and Nginx.</p>
+    </footer>
+
+    <div id="authModal" class="modal-backdrop hidden" aria-hidden="true">
+      <div class="modal-panel auth-panel">
+        <button class="close-modal" type="button" data-close="authModal" aria-label="Close login modal">×</button>
+        <div class="auth-tabs">
+          <button class="tab-button active" data-auth-tab="login" type="button">Login</button>
+          <button class="tab-button" data-auth-tab="register" type="button">Register</button>
+        </div>
+
+        <form id="loginForm" class="auth-form active">
+          <h3>Welcome back</h3>
+          <p class="auth-note">Demo account: demo@cinevault.com / Demo@123</p>
+          <label>
+            <span>Email</span>
+            <input type="email" id="loginEmail" placeholder="you@example.com" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" id="loginPassword" placeholder="Enter your password" required />
+          </label>
+          <button class="primary-button full-width" type="submit">Login</button>
+        </form>
+
+        <form id="registerForm" class="auth-form">
+          <h3>Create your account</h3>
+          <label>
+            <span>Full name</span>
+            <input type="text" id="registerName" placeholder="Your name" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" id="registerEmail" placeholder="you@example.com" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" id="registerPassword" placeholder="Min 6 characters" required />
+          </label>
+          <label>
+            <span>Confirm password</span>
+            <input type="password" id="registerConfirm" placeholder="Repeat password" required />
+          </label>
+          <button class="primary-button full-width" type="submit">Create Account</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="playerModal" class="modal-backdrop hidden" aria-hidden="true">
+      <div class="player-panel">
+        <div class="player-header">
+          <div>
+            <span class="section-tag">Now playing</span>
+            <h3 id="playerTitle">Title</h3>
+          </div>
+          <button class="close-modal" type="button" data-close="playerModal" aria-label="Close player">×</button>
+        </div>
+
+        <video id="videoPlayer" controls playsinline preload="metadata"></video>
+        <div class="player-meta">
+          <div>
+            <p id="playerDescription">Description</p>
+          </div>
+          <div class="related-box">
+            <h4>Related videos</h4>
+            <div id="relatedList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="upgradeModal" class="modal-backdrop hidden" aria-hidden="true">
+      <div class="modal-panel upgrade-panel">
+        <button class="close-modal" type="button" data-close="upgradeModal" aria-label="Close upgrade modal">×</button>
+        <div class="upgrade-icon">★</div>
+        <h3>Upgrade to Premium</h3>
+        <p>
+          This title requires a Premium subscription. Upgrade for ₹199/month to unlock all premium content and HD playback.
+        </p>
+        <div class="upgrade-actions">
+          <button class="primary-button" id="confirmUpgradeBtn" type="button">Activate Premium</button>
+          <button class="secondary-button" type="button" data-close="upgradeModal">Maybe later</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
